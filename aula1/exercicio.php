@@ -22,21 +22,22 @@ else {
     echo "<br>reprovado";
 }
 echo "<hr>";
-$idade = rand(0, 20);
+$idade = 15;
 if ($idade < 12){
     echo "criança";
-}
-elseif ($idade <= 17){
+} elseif ($idade >= 12 && $idade <= 17){
     echo "adolescente";
-}
-if ($idade >= 18){
+} else {
     echo "adulto";
 }
-echo "<hr>";
 $x = 1;
 while ($x <6) {
     echo " nº: " .$x. "<br>";
     $x++;
+}
+echo "<hr>";
+for ($i=0; $i <=10 ; $i+=2){
+echo $i."<br>";
 }
 
 ?>
