@@ -1,24 +1,22 @@
 [
     {
-        "id": "68acc5617ae7b",
-        "nome": "Vinicius",
-        "telefone": "5007576",
-        "titulo": null,
-        "genero": null,
-        "email": null,
-        "preco_compra": 90,
+        "id": "68acfc7b6a326",
+        "nome": "vinicius",
+        "telefone": "7574474758",
+        "titulo": "dexter",
+        "genero": "suspense",
+        "preco_compra": 54.58,
         "preco_aluguel": 0,
         "status": "Comprado"
     },
     {
-        "id": "68acc58a68013",
-        "nome": "Vinicius",
-        "telefone": "5007576",
-        "titulo": null,
-        "genero": null,
-        "email": null,
-        "preco_compra": 90,
-        "preco_aluguel": 0,
-        "status": "Dispon\u00edvel"
+        "id": "68acfcc797a07",
+        "nome": "vinicius",
+        "telefone": "454533",
+        "titulo": "alem do direito",
+        "genero": "drama juridico",
+        "preco_compra": 0,
+        "preco_aluguel": 20,
+        "status": "Alugado"
     }
 ]

@@ -19,7 +19,6 @@ $nome_edicao = '';
 $telefone_edicao = '';
 $titulo_edicao = '';
 $genero_edicao = '';
-$email_edicao = '';
 $preco_compra_edicao = '';
 $preco_aluguel_edicao = '';
 $status_edicao = 'Disponível';
@@ -53,7 +52,6 @@ if(isset($_GET['acao']) && $_GET['acao']=='editar' && isset($_GET['id'])) {
             $telefone_edicao = $s['telefone'];
             $titulo_edicao = $s['titulo'];
             $genero_edicao = $s['genero'];
-            $email_edicao = $s['email'];
             $preco_compra_edicao = $s['preco_compra'];
             $preco_aluguel_edicao = $s['preco_aluguel'];
             $status_edicao = $s['status'];
@@ -69,7 +67,6 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
     $telefone = $_POST['telefone'];
     $titulo = $_POST['titulo'];
     $genero = $_POST['genero'];
-    $email = $_POST['email'];
     $preco_compra = isset($_POST['preco_compra'])?(float)$_POST['preco_compra']:0;
     $preco_aluguel = isset($_POST['preco_aluguel'])?(float)$_POST['preco_aluguel']:0;
     $status = $_POST['status'];
@@ -82,7 +79,6 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
                 'telefone'=>$telefone,
                 'titulo'=>$titulo,
                 'genero'=>$genero,
-                'email'=>$email,
                 'preco_compra'=>$preco_compra,
                 'preco_aluguel'=>$preco_aluguel,
                 'status'=>$status
@@ -96,7 +92,6 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
             'telefone'=>$telefone,
             'titulo'=>$titulo,
             'genero'=>$genero,
-            'email'=>$email,
             'preco_compra'=>$preco_compra,
             'preco_aluguel'=>$preco_aluguel,
             'status'=>$status
@@ -167,12 +162,10 @@ td::before{content:attr(data-label);font-weight:600;}
 <input type="text" name="nome" value="<?= htmlspecialchars($nome_edicao) ?>" required>
 <label>Telefone:</label>
 <input type="number" name="telefone" value="<?= htmlspecialchars($telefone_edicao) ?>" required>
-<label>titulo da serie:</label>
-<input type="text" name="titulo da serie" value="<?= htmlspecialchars($titulo_edicao) ?>" required>
-<label>genero da serie:</label>
-<input type="text" name="genero da serie" value="<?= htmlspecialchars($genero_edicao) ?>" required>
-<label>Email do usuario ou responsavel:</label>
-<input type="text" name="email do ou responsavel" value="<?= htmlspecialchars($email_edicao) ?>" required>
+<label>Título:</label>
+<input type="text" name="titulo" value="<?= htmlspecialchars($titulo_edicao) ?>" required>
+<label>Gênero:</label>
+<input type="text" name="genero" value="<?= htmlspecialchars($genero_edicao) ?>" required>
 <label>Preço Compra (R$):</label>
 <input type="number" step="0.01" name="preco_compra" value="<?= htmlspecialchars($preco_compra_edicao) ?>">
 <label>Preço Aluguel (R$):</label>
@@ -222,8 +215,8 @@ $status_class=$s['status']=='Disponível'?'status-disponivel':($s['status']=='Co
 <tr>
 <td><?= htmlspecialchars($s['nome']) ?></td>
 <td><?= htmlspecialchars($s['telefone']) ?></td>
+<td><?= htmlspecialchars($s['titulo']) ?></td>
 <td><?= htmlspecialchars($s['genero']) ?></td>
-<td><?= htmlspecialchars($s['email']) ?></td>
 <td><?= $s['preco_compra']>0?'R$ '.number_format($s['preco_compra'],2,',','.'):'-' ?></td>
 <td><?= $s['preco_aluguel']>0?'R$ '.number_format($s['preco_aluguel'],2,',','.'):'-' ?></td>
 <td class="<?= $status_class ?>"><?= $s['status'] ?></td>
