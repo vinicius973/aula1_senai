@@ -2,7 +2,7 @@
  $hostname = "localhost";
  $username = "root";
  $password = "";
- $database = "desnvolvimento";
+ $database = "desenvolvimento";
  //habilita os relatórios de erro de classe mysqli
  mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
  try {
