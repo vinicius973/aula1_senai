@@ -9,7 +9,7 @@
     $conn = new mysqli($hostname, $username, $password, $database);
     //define o charset para UTF-8
     $conn -> set_charset("utf8mb4");
-    echo "Conectado ao BD!";
+
  } catch (mysqli_sql_exception $e){
     error_log("Erro na conexão com o BD:" . $e ->getMessage());
     //mensagem genérica para o usuário
