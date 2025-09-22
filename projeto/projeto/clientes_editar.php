@@ -80,30 +80,44 @@
                         <h2>EDIÇÃO DE CLIENTES</h2>
                     </div>
                     <div class="card-body text-start">
-                        <form action="clientes_cadastro.php" method="POST">
+                        <?php
+                            $id = $_GET['id'];
+                            $sql = "SELECT * FROM clientes WHERE id=$id";
+                            $query = $conn->query($sql);
+                            while ($dados = $query->fetch_assoc()) {
+                                $nome = $dados['nome'];
+                                $celular = $dados['celular'];
+                                $endereco = $dados['endereco'];
+                                $numero = $dados['numero'];
+                                $complemento = $dados['complemento'];
+                                $cidade = $dados['cidade'];
+                                $cpf = $dados['cpf'];
+                            }
+                        ?>
+                        <form action="clientes_atualiza.php?id=<?php echo $id; ?>" method="POST">
                             <div class="form-group">
                                 <label>NOME DO CLIENTE</label>
-                                <input type="text" class="form-control" name="nome" required>
+                                <input type="text" class="form-control" name="nome" value="<?php echo $nome; ?>" required>
                                 <br>
                                 <label>CELULAR</label>
-                                <input type="number" class="form-control" name="celular" required>
+                                <input type="number" class="form-control" name="celular" value="<?php echo $celular; ?>" required>
                                 <br>
                                 <label>ENDEREÇO</label>
-                                <input type="text" class="form-control" name="endereco" required>
+                                <input type="text" class="form-control" name="endereco" value="<?php echo $endereco; ?>" required>
                                 <br>
                                 <label>NÚMERO</label>
-                                <input type="number" class="form-control" name="numero" required>
+                                <input type="number" class="form-control" name="numero" value="<?php echo $numero; ?>" required>
                                 <br>
                                 <label>COMPLEMENTO</label>
-                                <input type="text" class="form-control" name="complemento" required>
+                                <input type="text" class="form-control" name="complemento" value="<?php echo $complemento; ?>" required>
                                 <br>
                                 <label>CIDADE</label>
-                                <input type="text" class="form-control" name="cidade" required>
+                                <input type="text" class="form-control" name="cidade" value="<?php echo $cidade; ?>" required>
                                 <br>
                                 <label>CPF</label>
-                                <input type="number" class="form-control" name="cpf" required>
+                                <input type="number" class="form-control" name="cpf" value="<?php echo $cpf; ?>" required>
                                 <br>
-                                <button type="submit" class="btn btn-success">CADASTRAR</button>
+                                <button type="submit" class="btn btn-success">ATUALIZAR</button>
                             </div>
                         </form>
                     </div>

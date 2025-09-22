@@ -1,4 +1,3 @@
-
 <?php
 include 'conecta.php';
 $id=$_GET['id'];
@@ -9,5 +8,3 @@ if (mysqli_query($conn, $sql)){
             </script>";
 }
 ?>
-
-
