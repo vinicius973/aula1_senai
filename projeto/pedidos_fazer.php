@@ -83,25 +83,126 @@ if (!empty($_SESSION['user'])) {
         <?php endforeach; ?>
     </select>
 </div>
-</div>
 <div class="col-md-6">
     <label for="data-entrega" class="from-label">DATA DE ENTREGA</label>
-    <input type="date" id="data_entrega" name="data_entrega" class="form-contol" required>
-</div>
-</form>     
+    <input type="date" id="data_entrega" name="data_entrega" class="form-contol" required>   
     </div>
     </div>
     <hr>
     <h5 class="mb-3">ADICIONAR ITENS AO PEDIDO</h5>
     <div class="row align-items-end g3">
         <div class="col-md-6">
-            <label for="salgado" class="form-label">SALGADO</label>
-            <select id="salgado" class="form-select">
-                <option data-valor="0" value="">Selecione um salgado...</option>
-                <?php foreach($salgado as $salgados): ?>
-                    <option value="<?php echo $salgados['id']; ?>"data_valor="<?php echo $salgados['valor']; ?>"><?php echo htmlspecialchars() ($salgado['nome']); ?></option>
-                    <?php endforeach; ?>
+        <label for="salgado" class="from-label">SALGADOS</label>
+<select id="salgado" name="id_salgado" class="form-select" required>
+<option value="">Selecione um salgado...</option>
+    <?php foreach($salgado as $salgados):?>
+        <option value="<?php echo $salgados['id']; ?>"><?php echo htmlspecialchars($salgados['nome']); ?></option>
+        <?php endforeach; ?>
+                </select>
+                </div>
+                <div class ="col-md-3">
+                    <label for ="quantidade" class="form-label">QUANTIDADE</label>
+                    <input type="number" id="quantidade" class="form-control" min="1" placeholder="Ex: 50">
+                </div>
+                <div class="col-md-3">
+                    <button type="button" id="btn-adicionar" class="btn btn-primary w-100">ADICIONAR</button>
+                </div>
+                </div>
+                <hr>
+                <h5 class="mt-4">ITENS DO PEDIDO</h5>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                      <th>SALGADOS</th>
+                      <th width="120px">QUANTIDADE</th>
+                      <th width="120px">UNITÁRIOS(R$)</th>
+                      <th width="150px">SUBTOTAL(R$)</th>
+                      <th width="80px">AÇÃO</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-itens">
+                    </tbod>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-end"><storng>TOTAL DO PEDIDO</strong></td>
+                            <td colspan="2"><strong id="total-pedido">R$ 0,00</strong></td>
+                        </tr>
+                    </tfoot>
+    </table>
+    <input type="hidden" name="itens_pedido" id="itens_pedido">
+    <div class="d-grid gap-2 mt-4">
+        <button type="submit" class="btn btn-sucess btn-lg">FINALIZAR PEDIDO</button>
+                </form>             
+                </div>
+                </div>
+               </div>
+    </div>
 </div>
-</div>
+<script>
+    $(document).ready(function(){}
+//Função para atualizar o total de pedido
+function atualizarTotal(){
+    let total = 0;
+    $('#tabela-itens tr').each(function(){
+
+    //Pegar o valor do subtotal de cada linha e somar o total
+    total += parseFloat($(this).data('subtotal'));
+});
+//Formatar como moeda brasileira
+$('#total_pedido').text('R$'+ total.toFixed(2).replace('.',','));{
+
+}
+//Ação do botão Adicionar
+$('#btn-adicionar').on('click', function(){
+let salgadoSelect = $('#salgado');
+let salgadoId = salgadoSelect.val();
+let salgadoNome = salgadoSelect.find('option:selected').text().trim();
+let salgadoValor = parseFloat(salgadoSelect.find('option:selected').data('valor'))
+let quantidade = parseInt($('#quantidade').val());
+if (!salgadoId){
+    alert('Por Favor, selecione um salgado.');
+    
+}
+if (isNaN(quantidade)|| quantidade <= 0 ) {
+    alert('Por favor,informe uma quantidade válida');
+    return;
+}
+let subtotal = salgadovalor * quantidade;
+//cria uma nova linha da tabela de dados
+//usamos data atributos para guardar os valores que enviamos ao PHP
+let novalinha=`
+<tr data id="$(salgadoid)" data-quantidade "$(quantidade)" data-subtotal "$(subtotal)">
+<td>${salgadonome}</td>
+<td>${quantidade}</td>
+<td>R$ ${salgadovalor.toFixed(2).replace('.',',')}</td>
+<td>R$ ${subtotal.toFixed(2).replace('.',',')}</td>
+<td><button type="button" class="btn btn-danger btn-sm-btn-remover">REMOVER</td>
+</tr>`;
+//Adicionar a nova linha
+$('#tabela-itens').append(novalinha);
+//Limpa os campos
+$('#salgado').val('');
+$('#quantidade').val('');
+//Atualizar o valor total 
+atualizarTotal();
+});
+//Ação para o botão remover 
+$('#tabela-itens').on('click', 'btn-remover', function(){
+    //Remova a linha pai
+    $(this).closet('tr').remove();
+      //Atualiza o total
+      atualizarTotal();
+});
+//Ação para submeter o fomulário
+$('#form-pedido').on('submit', function(event){
+    //Verifica se há pelo menos um item pedido
+    if ($('#tabela-itens tr').length === 0) {
+        alert('Você precisa adicionar pelo menos um item, antes de finalizar o pedido!')
+        event.preventDefault(); //Impede o envio do formulário
+        return;
+    }
+})
+});
+</script>
 </body>
 </html>
