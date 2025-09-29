@@ -93,7 +93,7 @@
                             <tbody>
                                 <tr>
                                     <?php
-                                        $pesquisa = mysqli_query($conn, "SELECT pedidos.*,clientes.id,clientes.nome,DATE_FORMAT(pedidos.data_pedido, '%d/%m/%Y') AS data_formatada FROM pedidos INNER JOIN clientes ON pedidos.id_cliente = clientes.id;");
+                                        $pesquisa = mysqli_query($conn, "SELECT pedidos.*,clientes.id AS idcliente,clientes.nome,DATE_FORMAT(pedidos.data_pedido, '%d/%m/%Y') AS data_formatada FROM pedidos INNER JOIN clientes ON pedidos.id_cliente = clientes.id;");
                                         $row = mysqli_num_rows($pesquisa);
                                         if ($row > 0) {
                                             while ($registro = $pesquisa -> fetch_array()) {

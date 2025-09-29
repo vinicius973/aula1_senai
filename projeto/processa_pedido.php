@@ -84,5 +84,4 @@ if(isset($stmt_item)) {
   mysqli_stmt_close($stmt_item);
 }
 mysqli_close($conn);
-
 ?>  

@@ -28,7 +28,7 @@
   // --- FIM: BUSCAR DADOS DO BANCO ---
 ?>
 <!DOCTYPE html>
-<html lang="pt-br"> 
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="content-language" content="pt-br">
@@ -49,7 +49,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script> 
     
     <header class="main-header">
-      <h2 class="main-title">SALGADINHOS DA MAMÃE</h2>
+      <h2 class="main-title">SALGADINHOS DA MARIA</h2>
       <div class="user-info">
         <?php
         if (!empty($_SESSION["user"])) {
@@ -245,80 +245,3 @@
     </script>
     </body>
 </html>
-<script>
-            $(document).ready(function(){
-                //Função para atualizar o total do pedido
-                function atualizarTotal(){
-                    let total = 0;
-                    $('#tabela-itens tr').each(function(){
-                        //Pegar o valor do subtotal de cada linha e somar ao total
-                        total += parseFloat($(this).data('subtotal'));
-                    });
-                    //Formatar como moeda brasileira
-                    $('#total-pedido').text('R$' + total.toFixed(2).replace('.',','));
-                }
-                //Ação do botão Adicionar
-                $('#btn-adicionar').on('click', function(){
-                    let salgadoSelect = $('#salgado');
-                    let salgadoId = salgadoSelect.val();
-                    let salgadoNome = salgadoSelect.find('option:selected').text().trim();
-                    let salgadoValor = parseFloat(salgadoSelect.find('option:selected').data('valor'));
-                    let quantidade = parseInt($('#quantidade').val());
-                    //Validação simples
-                    if (!salgadoId) {
-                        alert('Por favor, selecione um salgado.');
-                        return;
-                    }
-                    if (isNaN(quantidade) || quantidade <= 0) {
-                        alert('Por favor, informe uma quantidade válida!');
-                        return;
-                    }
-                    let subtotal = salgadoValor * quantidade;
-                    //Cria uma nova linha da tabela de dados.
-                    //Usamos data attributes para guardar os valores que enviaremos ao PHP
-                    let novaLinha = `
-                    <tr data-id="${salgadoId}" data-quantidade="${quantidade}" data-subtotal="${subtotal}">
-                        <td>${salgadoNome}</td>
-                        <td>${quantidade}</td>
-                        <td>R$ ${salgadoValor.toFixed(2).replace('.',',')}</td>
-                        <td>R$ ${subtotal.toFixed(2).replace('.',',')}</td>
-                        <td><button type="button" class="btn btn-danger btn-sm btn-remover">REMOVER</button></td>
-                    </tr>`;
-                    //Adicionar a nova linha.
-                    $('#tabela-itens').append(novaLinha);
-                    //Limpa os campos
-                    $('#salgado').val('');
-                    $('#quantidade').val('');
-                    //Atualizar o valor total
-                    atualizarTotal();
-                });
-                //Ação para botão remover
-                $('#tabela-itens').on('click', 'btn-remover', function(){
-                    //Remove a linha pai
-                    $(this).closest('tr').remove();
-                    //Atualiza o total
-                    atualizarTotal();
-                });
-                //Ação para submeter o formulário
-                $('#form-pedido').on('submit', function(event){
-                    //Verifica se há pelo menos um item pedido
-                    if ($('#tabela-itens tr').length === 0) {
-                        alert('Você precisa adicionar pelo menos um item, antes de finalizar o pedido!');
-                        event.preventDefault(); //Impede o envio do formulário
-                        return;
-                    }
-                    //Coletar os dados das linhas da tabela
-                    let itens = [];
-                    $('#tabela-itens tr').each(function(){
-                        let item = {
-                            id_salgado: $(this).data('id'),
-                            quantidade: $(this).data('quantidade'),
-                            subtotal: $(this).data('subtotal')
-                        };
-                        itens.push(item);
-                    });
-                    //Colocar os dados coletados em um JSON
-                    $('#itens_pedido').val(JSON.stringfy(itens));
-                });
-            });
-        </script>
