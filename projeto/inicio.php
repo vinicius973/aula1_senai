@@ -62,11 +62,18 @@
         </header>
         <hr>
         <nav>
+            
             <?php
                 include 'menu.php';
             ?>
         </nav>
         <br>
         <center><h2>DASHBOARD</h2></center>
+        <div class="container">
+                
+                <?php
+                 include 'dashboard.php'
+                ?>
+                </div>
     </body>
 </html>
