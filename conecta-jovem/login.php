@@ -14,4 +14,7 @@
         echo ("<script>window.location.replace('index.php');</script>");
     }
     mysqli_close($conn);
+    if (condition) {
+        # code...
+    }
 ?>
